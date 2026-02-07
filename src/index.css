@@ -134,42 +134,56 @@
   font-style: italic;
 }
 
-/* ===== DEFINE NUNITO COMO PADRÃO NO TAILWIND ===== */
-
 :root {
   --font-sans: "Nunito", ui-sans-serif, system-ui, sans-serif;
-  --radius: 0.625rem;
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.646 0.222 41.116);
-  --chart-2: oklch(0.6 0.118 184.704);
-  --chart-3: oklch(0.398 0.07 227.392);
-  --chart-4: oklch(0.828 0.189 84.429);
-  --chart-5: oklch(0.769 0.188 70.08);
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
+  --primary-blue: #3b85fc;
+  --primary-green: #55b22e;
+  --primary-red: #e92f2f;
+
+  /* Fundo da aplicação (<body>) */
+  --background: #090909;
+  --foreground: #ffffff;
+
+  /* Fundo do <Card> */
+  --card: #161616;
+  --card-foreground: #ffffff;
+
+  /* Fundo do <DropdownMenu>, <HoverCard>, <Popover> */
+  --popover: #161616;
+  --popover-foreground: #ffffff;
+
+  /* Botões */
+  --primary: #55b22e;
+  --primary-foreground: #ffffff;
+  --secondary: #27272a;
+  --secondary-foreground: #ffffff;
+
+  /* Fundo do <Switch>, <Skeleton> e <TabList> */
+  --muted: #27272a;
+  --muted-foreground: #a2a2a2;
+
+  /* Efeito de hover no <DropdownMenu>, <HoverCard> e <Popover> */
+  --accent: #27272a;
+  --accent-foreground: #ffffff;
+
+  /* Botões perigosos */
+  --destructive: #e92f2f;
+  --destructive-foreground: #ffffff;
+
+  /* Bordas */
+  --border: #27272a;
+  --input: #27272a;
+  --ring: #d3d3d3;
+
+  /* Border radius */
+  --radius: 0.5rem;
+
+  /* Gráficos */
+  --chart-1: #2661d8;
+  --chart-2: #2db789;
+  --chart-3: #e88c30;
+  --chart-4: #af56db;
+  --chart-5: #e2366f;
 }
 
 @theme inline {
