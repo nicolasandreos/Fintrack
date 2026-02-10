@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Controller, useForm } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import * as z from "zod";
 
@@ -47,6 +47,7 @@ const SingUpSchema = z
   })
   .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
+    path: ["confirmPassword"],
   });
 
 const SignUpPage = () => {
@@ -114,7 +115,11 @@ const SignUpPage = () => {
                   <FormItem>
                     <FormLabel>Email</FormLabel>
                     <FormControl>
-                      <FormInput placeholder="Type your email" {...field} />
+                      <FormInput
+                        type="email"
+                        placeholder="Type your email"
+                        {...field}
+                      />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

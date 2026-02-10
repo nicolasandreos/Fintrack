@@ -41,6 +41,8 @@ export default [
       "no-unused-vars": "warn",
       "react/prop-types": "off",
       "prop-val-types": "off",
+      "react/no-unescaped-entities": "off",
+      "react/react-in-jsx-scope": "off",
     },
   },
   eslintConfigPrettier,
