@@ -164,7 +164,7 @@ const SignUpPage = () => {
                 control={formSettings.control}
                 name="terms"
                 render={({ field }) => (
-                  <FormItem className="flex flex-row items-start space-y-0 space-x-3 rounded-md border p-4">
+                  <FormItem className="flex flex-row items-start space-y-0 space-x-3 rounded-md p-1">
                     <FormControl>
                       <Checkbox
                         checked={field.value}
