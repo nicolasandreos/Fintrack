@@ -1,4 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import * as z from "zod";
@@ -23,6 +24,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import useCreateUser from "@/hooks/data/useCreateUser";
 
 const SingUpSchema = z
   .object({
@@ -63,8 +65,15 @@ const SignUpPage = () => {
     },
   });
 
-  const handleFormSubmit = (data) => {
-    console.log(data);
+  const [user, setUser] = useState(null);
+  const { mutate: createUser } = useCreateUser();
+
+  const handleFormSubmit = (formData) => {
+    createUser(formData, {
+      onSuccess: (createdUser) => {
+        setUser(createdUser);
+      },
+    });
   };
 
   return (
@@ -73,7 +82,9 @@ const SignUpPage = () => {
         <form onSubmit={formSettings.handleSubmit(handleFormSubmit)}>
           <Card className="w-125">
             <CardHeader className="text-center">
-              <CardTitle className="text-3xl">Create Account</CardTitle>
+              <CardTitle className="text-3xl">
+                Create Account {user?.first_name}
+              </CardTitle>
               <CardDescription>
                 Fill in your details to create an account
               </CardDescription>
