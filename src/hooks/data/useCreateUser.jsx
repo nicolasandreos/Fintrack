@@ -5,6 +5,7 @@ import api from "@/lib/axios";
 
 const useCreateUser = () =>
   useMutation({
+    mutationKey: ["createUser"],
     mutationFn: async (formData) => {
       const payload = {
         first_name: formData.firstName,

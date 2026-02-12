@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import * as z from "zod";
@@ -25,6 +25,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import useCreateUser from "@/hooks/data/useCreateUser";
+import useGetAutenticatedUser from "@/hooks/data/useGetAutenticatedUser";
 
 const SingUpSchema = z
   .object({
@@ -67,6 +68,7 @@ const SignUpPage = () => {
 
   const [user, setUser] = useState(null);
   const { mutate: createUser } = useCreateUser();
+  const { data: authenticatedUser } = useGetAutenticatedUser();
 
   const handleFormSubmit = (formData) => {
     createUser(formData, {
@@ -75,6 +77,16 @@ const SignUpPage = () => {
       },
     });
   };
+
+  useEffect(() => {
+    try {
+      if (authenticatedUser) {
+        setUser(authenticatedUser);
+      }
+    } catch (error) {
+      console.error("Error setting authenticated user:", error);
+    }
+  }, [authenticatedUser]);
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
