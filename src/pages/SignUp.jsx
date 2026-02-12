@@ -5,6 +5,7 @@ import * as z from "zod";
 
 import FormInput from "@/components/FormInput";
 import InputPassword from "@/components/InputPassword";
+import LoadingAuthentication from "@/components/LoadingAuthentication";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -63,11 +64,15 @@ const SignUpPage = () => {
       terms: false,
     },
   });
-  const { signUp, user } = useAuthContext();
+  const { signUp, user, isAuthenticating } = useAuthContext();
 
   const handleFormSubmit = (formData) => {
     signUp(formData);
   };
+
+  if (isAuthenticating) {
+    return <LoadingAuthentication />;
+  }
 
   if (user) {
     return <h1>{user.first_name}</h1>;

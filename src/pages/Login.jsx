@@ -5,6 +5,7 @@ import z from "zod";
 
 import FormInput from "@/components/FormInput";
 import InputPassword from "@/components/InputPassword";
+import LoadingAuthentication from "@/components/LoadingAuthentication";
 import { Button } from "@/components/ui/button";
 import {
   Card,
@@ -41,7 +42,7 @@ const LoginPage = () => {
       password: "",
     },
   });
-  const { login, user } = useAuthContext();
+  const { login, user, isAuthenticating } = useAuthContext();
 
   const removeTokens = () => {
     localStorage.removeItem("accessToken");
@@ -52,6 +53,10 @@ const LoginPage = () => {
     removeTokens();
     login(formData);
   };
+
+  if (isAuthenticating) {
+    return <LoadingAuthentication />;
+  }
 
   if (user) {
     return <h1>{user.first_name}</h1>;

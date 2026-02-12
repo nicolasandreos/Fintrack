@@ -6,6 +6,7 @@ import useLogin from "@/hooks/data/useLogin";
 
 export const AuthContext = createContext({
   user: null,
+  isAuthenticating: null,
   login: () => {},
   logout: () => {},
   signUp: () => {},
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const { mutate: doLogin } = useLogin();
   const { mutate: createUser } = useCreateUser();
-  const { data: authenticatedUser } = useGetAutenticatedUser();
+  const { data: authenticatedUser, isPending } = useGetAutenticatedUser();
 
   useEffect(() => {
     try {
@@ -49,7 +50,9 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, login, logout, signUp }}>
+    <AuthContext.Provider
+      value={{ user, isAuthenticating: isPending, login, logout, signUp }}
+    >
       {children}
     </AuthContext.Provider>
   );
