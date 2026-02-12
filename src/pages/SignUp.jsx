@@ -1,6 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Heading1 } from "lucide-react";
-import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import * as z from "zod";
@@ -25,9 +23,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { AuthContext } from "@/contexts/auth";
-import useCreateUser from "@/hooks/data/useCreateUser";
-import useGetAutenticatedUser from "@/hooks/data/useGetAutenticatedUser";
+import { useAuthContext } from "@/contexts/auth";
 
 const SingUpSchema = z
   .object({
@@ -67,27 +63,14 @@ const SignUpPage = () => {
       terms: false,
     },
   });
-
-  const [user, setUser] = useState(null);
-  const { data: authenticatedUser } = useGetAutenticatedUser();
-  const { signUp, user: userContext } = useContext(AuthContext);
+  const { signUp, user } = useAuthContext();
 
   const handleFormSubmit = (formData) => {
     signUp(formData);
   };
 
-  useEffect(() => {
-    try {
-      if (authenticatedUser) {
-        setUser(authenticatedUser);
-      }
-    } catch (error) {
-      console.error("Error setting authenticated user:", error);
-    }
-  }, [authenticatedUser]);
-
-  if (userContext) {
-    return <h1>{userContext.first_name}</h1>;
+  if (user) {
+    return <h1>{user.first_name}</h1>;
   }
 
   return (

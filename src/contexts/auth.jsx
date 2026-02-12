@@ -1,6 +1,7 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
 import useCreateUser from "@/hooks/data/useCreateUser";
+import useGetAutenticatedUser from "@/hooks/data/useGetAutenticatedUser";
 import useLogin from "@/hooks/data/useLogin";
 
 export const AuthContext = createContext({
@@ -10,10 +11,23 @@ export const AuthContext = createContext({
   signUp: () => {},
 });
 
+export const useAuthContext = () => useContext(AuthContext);
+
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const { mutate: doLogin } = useLogin();
   const { mutate: createUser } = useCreateUser();
+  const { data: authenticatedUser } = useGetAutenticatedUser();
+
+  useEffect(() => {
+    try {
+      if (authenticatedUser) {
+        setUser(authenticatedUser);
+      }
+    } catch (error) {
+      console.error("Error setting authenticated user:", error);
+    }
+  }, [authenticatedUser]);
 
   const login = (credentials) => {
     doLogin(credentials, {

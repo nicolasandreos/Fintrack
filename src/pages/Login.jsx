@@ -1,5 +1,4 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import z from "zod";
@@ -23,8 +22,7 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
-import { AuthContext } from "@/contexts/auth";
-import useGetAutenticatedUser from "@/hooks/data/useGetAutenticatedUser";
+import { useAuthContext } from "@/contexts/auth";
 
 const loginSchema = z.object({
   email: z
@@ -43,24 +41,11 @@ const LoginPage = () => {
       password: "",
     },
   });
-  const [user, setUser] = useState(null);
-  const { data: authenticatedUser } = useGetAutenticatedUser();
-  const { login, user: userContext } = useContext(AuthContext);
-
-  useEffect(() => {
-    try {
-      if (authenticatedUser) {
-        setUser(authenticatedUser);
-      }
-    } catch (error) {
-      console.error("Error setting authenticated user:", error);
-    }
-  }, [authenticatedUser]);
+  const { login, user } = useAuthContext();
 
   const removeTokens = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
-    setUser(null);
   };
 
   const handleSubmitForm = (formData) => {
@@ -68,8 +53,8 @@ const LoginPage = () => {
     login(formData);
   };
 
-  if (userContext) {
-    return <h1>{userContext?.first_name}</h1>;
+  if (user) {
+    return <h1>{user.first_name}</h1>;
   }
 
   return (
