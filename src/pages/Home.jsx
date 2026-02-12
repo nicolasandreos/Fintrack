@@ -1,5 +1,20 @@
+import LoadingAuthentication from "@/components/LoadingAuthentication";
+import { Button } from "@/components/ui/button";
+import { useAuthContext } from "@/contexts/auth";
+
 const HomePage = () => {
-  return <h1>Home</h1>;
+  const { user, isAuthenticating, logout } = useAuthContext();
+
+  if (isAuthenticating) {
+    return <LoadingAuthentication />;
+  }
+
+  return (
+    <div>
+      <h1>Olá {user?.first_name}</h1>
+      <Button onClick={logout}>Logout</Button>
+    </div>
+  );
 };
 
 export default HomePage;

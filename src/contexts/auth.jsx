@@ -20,6 +20,11 @@ export const AuthProvider = ({ children }) => {
   const { mutate: createUser } = useCreateUser();
   const { data: authenticatedUser, isPending } = useGetAutenticatedUser();
 
+  const removeTokens = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("refreshToken");
+  };
+
   useEffect(() => {
     try {
       if (authenticatedUser) {
@@ -38,7 +43,10 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const logout = () => setUser(null);
+  const logout = () => {
+    removeTokens();
+    setUser(null);
+  };
 
   const signUp = (userData) => {
     createUser(userData, {
