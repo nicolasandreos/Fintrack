@@ -7,6 +7,7 @@ import { createBrowserRouter } from "react-router";
 import { RouterProvider } from "react-router/dom";
 import { Toaster } from "sonner";
 
+import { AuthProvider } from "./contexts/auth";
 import HomePage from "./pages/Home";
 import LoginPage from "./pages/Login";
 import NotFoundPage from "./pages/NotFoundPage";
@@ -36,8 +37,10 @@ const queryClient = new QueryClient();
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <RouterProvider router={router} />
-      <Toaster position="bottom-right" />
+      <AuthProvider>
+        <RouterProvider router={router} />
+        <Toaster position="bottom-right" />
+      </AuthProvider>
     </QueryClientProvider>
   </StrictMode>
 );

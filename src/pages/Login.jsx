@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router";
 import z from "zod";
@@ -23,8 +23,8 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import { AuthContext } from "@/contexts/auth";
 import useGetAutenticatedUser from "@/hooks/data/useGetAutenticatedUser";
-import useLogin from "@/hooks/data/useLogin";
 
 const loginSchema = z.object({
   email: z
@@ -45,6 +45,7 @@ const LoginPage = () => {
   });
   const [user, setUser] = useState(null);
   const { data: authenticatedUser } = useGetAutenticatedUser();
+  const { login, user: userContext } = useContext(AuthContext);
 
   useEffect(() => {
     try {
@@ -56,8 +57,6 @@ const LoginPage = () => {
     }
   }, [authenticatedUser]);
 
-  const { mutate: doLogin } = useLogin();
-
   const removeTokens = () => {
     localStorage.removeItem("accessToken");
     localStorage.removeItem("refreshToken");
@@ -66,12 +65,12 @@ const LoginPage = () => {
 
   const handleSubmitForm = (formData) => {
     removeTokens();
-    doLogin(formData, {
-      onSuccess: (loggedUser) => {
-        setUser(loggedUser);
-      },
-    });
+    login(formData);
   };
+
+  if (userContext) {
+    return <h1>{userContext?.first_name}</h1>;
+  }
 
   return (
     <div className="flex h-screen w-screen items-center justify-center">
@@ -79,9 +78,7 @@ const LoginPage = () => {
         <form onSubmit={formSettings.handleSubmit(handleSubmitForm)}>
           <Card className="w-125">
             <CardHeader className="text-center">
-              <CardTitle className="text-3xl">
-                Enter your credentials {user?.first_name}
-              </CardTitle>
+              <CardTitle className="text-3xl">Enter your credentials</CardTitle>
               <CardDescription>
                 Fill in your username and password to log in.
               </CardDescription>
