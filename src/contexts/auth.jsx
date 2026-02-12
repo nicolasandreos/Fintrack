@@ -1,5 +1,6 @@
 import { createContext, useState } from "react";
 
+import useCreateUser from "@/hooks/data/useCreateUser";
 import useLogin from "@/hooks/data/useLogin";
 
 export const AuthContext = createContext({
@@ -12,6 +13,7 @@ export const AuthContext = createContext({
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const { mutate: doLogin } = useLogin();
+  const { mutate: createUser } = useCreateUser();
 
   const login = (credentials) => {
     doLogin(credentials, {
@@ -21,14 +23,15 @@ export const AuthProvider = ({ children }) => {
     });
   };
 
-  const logout = () => {
-    setUser(null);
-  };
+  const logout = () => setUser(null);
 
   const signUp = (userData) => {
-    // Implement sign up logic here
-    // For example, make an API call to register a new user
-    // and set the user state accordingly
+    createUser(userData, {
+      onSuccess: (createdUser) => {
+        setUser(createdUser);
+        console.log(user);
+      },
+    });
   };
 
   return (
