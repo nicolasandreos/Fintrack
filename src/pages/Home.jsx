@@ -1,3 +1,5 @@
+import { Navigate } from "react-router";
+
 import LoadingAuthentication from "@/components/LoadingAuthentication";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/contexts/auth";
@@ -7,6 +9,10 @@ const HomePage = () => {
 
   if (isAuthenticating) {
     return <LoadingAuthentication />;
+  }
+
+  if (!user) {
+    return <Navigate to="/login" />;
   }
 
   return (

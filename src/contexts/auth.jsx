@@ -1,5 +1,9 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
+import {
+  LOCAL_STORAGE_ACCESS_TOKEN,
+  LOCAL_STORAGE_REFRESH_TOKEN,
+} from "@/constants/localStorage";
 import useCreateUser from "@/hooks/data/useCreateUser";
 import useGetAutenticatedUser from "@/hooks/data/useGetAutenticatedUser";
 import useLogin from "@/hooks/data/useLogin";
@@ -21,8 +25,8 @@ export const AuthProvider = ({ children }) => {
   const { data: authenticatedUser, isPending } = useGetAutenticatedUser();
 
   const removeTokens = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN);
+    localStorage.removeItem(LOCAL_STORAGE_REFRESH_TOKEN);
   };
 
   useEffect(() => {

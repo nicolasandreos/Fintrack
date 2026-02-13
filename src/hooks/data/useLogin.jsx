@@ -1,6 +1,10 @@
 import { useMutation } from "@tanstack/react-query";
 import { toast } from "sonner";
 
+import {
+  LOCAL_STORAGE_ACCESS_TOKEN,
+  LOCAL_STORAGE_REFRESH_TOKEN,
+} from "@/constants/localStorage";
 import api from "@/lib/axios";
 
 const useLogin = () => {
@@ -12,8 +16,11 @@ const useLogin = () => {
     },
     onSuccess: (data) => {
       toast.success("Login successful! User: " + data.first_name);
-      localStorage.setItem("accessToken", data.tokens.accessToken);
-      localStorage.setItem("refreshToken", data.tokens.refreshToken);
+      localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN, data.tokens.accessToken);
+      localStorage.setItem(
+        LOCAL_STORAGE_REFRESH_TOKEN,
+        data.tokens.refreshToken
+      );
     },
     onError: (error) => {
       toast.error(

@@ -1,14 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
 
+import { LOCAL_STORAGE_ACCESS_TOKEN } from "@/constants/localStorage";
 import api from "@/lib/axios";
 
 const useGetAutenticatedUser = () => {
   return useQuery({
     queryKey: ["authenticatedUser"],
     queryFn: async () => {
-      const accessToken = localStorage.getItem("accessToken");
+      const accessToken = localStorage.getItem(LOCAL_STORAGE_ACCESS_TOKEN);
       if (!accessToken) {
-        throw new Error("No access token found");
+        console.error("No access token found");
+        return;
       }
       const response = await api.get("/users/me", {
         headers: {

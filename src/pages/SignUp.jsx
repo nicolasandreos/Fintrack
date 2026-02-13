@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import * as z from "zod";
 
 import FormInput from "@/components/FormInput";
@@ -75,7 +75,7 @@ const SignUpPage = () => {
   }
 
   if (user) {
-    return <h1>{user.first_name}</h1>;
+    return <Navigate to="/" />;
   }
 
   return (

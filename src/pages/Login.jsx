@@ -1,6 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router";
+import { Link, Navigate } from "react-router";
 import z from "zod";
 
 import FormInput from "@/components/FormInput";
@@ -23,6 +23,10 @@ import {
   FormLabel,
   FormMessage,
 } from "@/components/ui/form";
+import {
+  LOCAL_STORAGE_ACCESS_TOKEN,
+  LOCAL_STORAGE_REFRESH_TOKEN,
+} from "@/constants/localStorage";
 import { useAuthContext } from "@/contexts/auth";
 
 const loginSchema = z.object({
@@ -45,8 +49,8 @@ const LoginPage = () => {
   const { login, user, isAuthenticating } = useAuthContext();
 
   const removeTokens = () => {
-    localStorage.removeItem("accessToken");
-    localStorage.removeItem("refreshToken");
+    localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN);
+    localStorage.removeItem(LOCAL_STORAGE_REFRESH_TOKEN);
   };
 
   const handleSubmitForm = (formData) => {
@@ -59,7 +63,7 @@ const LoginPage = () => {
   }
 
   if (user) {
-    return <h1>{user.first_name}</h1>;
+    return <Navigate to="/" />;
   }
 
   return (
