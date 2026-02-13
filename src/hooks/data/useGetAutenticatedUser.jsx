@@ -12,11 +12,7 @@ const useGetAutenticatedUser = () => {
         console.error("No access token found");
         return;
       }
-      const response = await api.get("/users/me", {
-        headers: {
-          Authorization: `Bearer ${accessToken}`,
-        },
-      });
+      const response = await api.get("/users/me");
       const authenticatedUser = response.data;
       return authenticatedUser;
     },
