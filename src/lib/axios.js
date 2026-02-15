@@ -50,7 +50,7 @@ api.interceptors.response.use(
         localStorage.setItem(LOCAL_STORAGE_ACCESS_TOKEN, newAccessToken);
 
         request.headers.Authorization = `Bearer ${newAccessToken}`;
-        api(request);
+        return api(request);
       } catch (error) {
         console.error(error);
         localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN);

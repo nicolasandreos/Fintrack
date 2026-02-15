@@ -1,5 +1,6 @@
 import { Navigate } from "react-router";
 
+import Header from "@/components/Header";
 import LoadingAuthentication from "@/components/LoadingAuthentication";
 import { Button } from "@/components/ui/button";
 import { useAuthContext } from "@/contexts/auth";
@@ -16,9 +17,8 @@ const HomePage = () => {
   }
 
   return (
-    <div>
-      <h1>Olá {user?.first_name}</h1>
-      <Button onClick={logout}>Logout</Button>
+    <div className="h-screen w-screen">
+      <Header />
     </div>
   );
 };
