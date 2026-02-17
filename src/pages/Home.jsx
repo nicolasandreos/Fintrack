@@ -1,6 +1,7 @@
 import { PlusIcon } from "lucide-react";
 import { Navigate } from "react-router";
 
+import Cards from "@/components/Cards";
 import Header from "@/components/Header";
 import LoadingAuthentication from "@/components/LoadingAuthentication";
 import { Button } from "@/components/ui/button";
@@ -31,6 +32,8 @@ const HomePage = () => {
             </Button>
           </div>
         </div>
+
+        <Cards />
       </div>
     </div>
   );
