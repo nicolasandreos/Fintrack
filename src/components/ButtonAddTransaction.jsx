@@ -28,7 +28,7 @@ import {
 
 const addFormTransactionSchema = z.object({
   title: z.string().trim().min(1, "Title is required"),
-  amount: z.coerce.number().min(1, "Value must exist"),
+  amount: z.number().min(1, "Value must exist"),
   date: z.date({ required_error: "Date is required" }),
   type: z.enum(["EARNING", "EXPENSE", "INVESTMENT"]),
 });
@@ -56,9 +56,12 @@ const ButtonAddTransaction = () => {
           New Transaction <PlusIcon />
         </Button>
       </DialogTrigger>
-      <Form {...formSettings}>
-        <form onSubmit={formSettings.handleSubmit(handleSubmitForm)}>
-          <DialogContent className="flex flex-col gap-6">
+      <DialogContent>
+        <Form {...formSettings}>
+          <form
+            onSubmit={formSettings.handleSubmit(handleSubmitForm)}
+            className="flex flex-col gap-6"
+          >
             <DialogHeader>
               <DialogTitle className="text-center text-2xl">
                 Add Transaction
@@ -172,9 +175,9 @@ const ButtonAddTransaction = () => {
                 Add
               </Button>
             </div>
-          </DialogContent>
-        </form>
-      </Form>
+          </form>
+        </Form>
+      </DialogContent>
     </Dialog>
   );
 };
