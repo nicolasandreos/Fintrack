@@ -29,27 +29,32 @@ const Cards = () => {
   });
 
   return (
-    <div className="grid w-213 grid-cols-2 grid-rows-2 gap-4">
-      <CardSection
-        text="Wallet"
-        value="R$ 2.700,00"
-        icon={<WalletIcon className="h-5 w-5 text-white opacity-100" />}
-      />
-      <CardSection
-        text="Wallet"
-        value="R$ 2.700,00"
-        icon={<TrendingUpIcon className="text-primary h-5 w-5 opacity-100" />}
-      />
-      <CardSection
-        text="Wallet"
-        value="R$ 2.700,00"
-        icon={<TrendingDownIcon className="h-5 w-5 text-red-500 opacity-100" />}
-      />
-      <CardSection
-        text="Wallet"
-        value="R$ 2.700,00"
-        icon={<PiggyBankIcon className="h-5 w-5 text-blue-500 opacity-100" />}
-      />
+    <div className="grid grid-cols-3">
+      <div className="col-span-2 grid w-213 grid-cols-2 grid-rows-2 gap-4">
+        <CardSection
+          text="Wallet"
+          value="R$ 2.700,00"
+          icon={<WalletIcon className="h-5 w-5 text-white opacity-100" />}
+        />
+        <CardSection
+          text="Wallet"
+          value="R$ 2.700,00"
+          icon={<TrendingUpIcon className="text-primary h-5 w-5 opacity-100" />}
+        />
+        <CardSection
+          text="Wallet"
+          value="R$ 2.700,00"
+          icon={
+            <TrendingDownIcon className="h-5 w-5 text-red-500 opacity-100" />
+          }
+        />
+        <CardSection
+          text="Wallet"
+          value="R$ 2.700,00"
+          icon={<PiggyBankIcon className="h-5 w-5 text-blue-500 opacity-100" />}
+        />
+      </div>
+      {/* <Card className='w-125 h-64' /> */}
     </div>
   );
 };

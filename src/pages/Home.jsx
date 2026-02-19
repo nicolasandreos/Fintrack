@@ -1,10 +1,9 @@
-import { PlusIcon } from "lucide-react";
 import { Navigate } from "react-router";
 
+import ButtonAddTransaction from "@/components/ButtonAddTransaction";
 import Cards from "@/components/Cards";
 import Header from "@/components/Header";
 import LoadingAuthentication from "@/components/LoadingAuthentication";
-import { Button } from "@/components/ui/button";
 import DateSelector from "@/components/ui/date-selector";
 import { useAuthContext } from "@/contexts/auth";
 import TransactionService from "@/services/transaction";
@@ -38,9 +37,7 @@ const HomePage = () => {
           <h2 className="text-2xl">Dashboard</h2>
           <div className="flex">
             <DateSelector />
-            <Button onClick={handleAddTransaction}>
-              New Transaction <PlusIcon />
-            </Button>
+            <ButtonAddTransaction />
           </div>
         </div>
 
