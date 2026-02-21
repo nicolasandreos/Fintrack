@@ -15,6 +15,7 @@ const DatePicker = ({ value, onChange }) => {
     <Popover>
       <PopoverTrigger>
         <Button
+          type="button"
           variant="outline"
           data-empty={!value}
           className="data-[empty=true]:text-muted-foreground bg-card w-full justify-between py-6 text-left font-normal"
