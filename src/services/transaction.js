@@ -2,7 +2,6 @@ import api from "@/lib/axios";
 
 const TransactionService = {
   create: async (data) => {
-    console.log(data);
     const response = await api.post("/transactions/me", data);
     return response.data;
   },

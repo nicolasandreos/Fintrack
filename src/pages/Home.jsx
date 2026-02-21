@@ -6,7 +6,6 @@ import Header from "@/components/Header";
 import LoadingAuthentication from "@/components/LoadingAuthentication";
 import DateSelector from "@/components/ui/date-selector";
 import { useAuthContext } from "@/contexts/auth";
-import TransactionService from "@/services/transaction";
 
 const HomePage = () => {
   const { user, isAuthenticating } = useAuthContext();
@@ -18,16 +17,6 @@ const HomePage = () => {
   if (!user) {
     return <Navigate to="/login" />;
   }
-
-  const handleAddTransaction = () => {
-    const response = TransactionService.create({
-      name: "Salary",
-      type: "EARNING",
-      date: "2023-12-15T17:08:26.189Z",
-      amount: 1000,
-    });
-    return response;
-  };
 
   return (
     <div className="h-screen w-screen">
