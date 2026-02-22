@@ -20,7 +20,7 @@ const Cards = () => {
 
   const { user } = useAuthContext();
   const { data: userTransactions } = useQuery({
-    queryKey: ["user-transactions", user?.id],
+    queryKey: ["user-transactions", user?.id, from, to],
     queryFn: async () => {
       const meTransactions = await TransactionService.me({ from, to });
       return meTransactions;
