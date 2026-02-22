@@ -1,10 +1,7 @@
-import { zodResolver } from "@hookform/resolvers/zod";
 import { PlusIcon } from "lucide-react";
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { useState } from "react";
-import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
-import z from "zod";
 
 import {
   Dialog,
@@ -13,11 +10,8 @@ import {
   DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
-import { useAuthContext } from "@/contexts/auth";
-import { useCreateTransaction } from "@/hooks/data/transactions";
-import TransactionService from "@/services/transaction";
+import { useFormAddTransaction } from "@/form/hooks/transaction";
 
 import FormInput from "./FormInput";
 import { Button } from "./ui/button";
@@ -31,35 +25,11 @@ import {
   FormMessage,
 } from "./ui/form";
 
-const addFormTransactionSchema = z.object({
-  name: z.string().trim().min(1, "Title is required"),
-  amount: z.number().min(1, "Value must exist"),
-  date: z.date({ required_error: "Date is required" }),
-  type: z.enum(["EARNING", "EXPENSE", "INVESTMENT"]),
-});
-
 const ButtonAddTransaction = () => {
-  const formSettings = useForm({
-    resolver: zodResolver(addFormTransactionSchema),
-    defaultValues: {
-      name: "",
-      amount: "",
-      date: new Date(),
-      type: "EARNING",
-    },
-    shouldUnregister: true,
-  });
-
-  const { mutate: createTransaction, isPending } = useCreateTransaction();
   const [isModalOpen, setIsModalOpen] = useState(false);
-
-  const handleSubmitForm = (formData) => {
-    createTransaction(formData, {
-      onSuccess: () => {
-        setIsModalOpen((currentValue) => !currentValue);
-      },
-    });
-  };
+  const { formSettings, handleSubmitForm, isPending } = useFormAddTransaction({
+    onSuccess: () => setIsModalOpen((currentValue) => !currentValue),
+  });
 
   return (
     <>
