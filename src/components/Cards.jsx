@@ -25,6 +25,7 @@ const Cards = () => {
       const meTransactions = await TransactionService.me({ from, to });
       return meTransactions;
     },
+    enabled: Boolean(user.id) && Boolean(from) && Boolean(to),
   });
 
   const profitsAmount =

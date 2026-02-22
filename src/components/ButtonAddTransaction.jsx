@@ -1,11 +1,9 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { PlusIcon } from "lucide-react";
 import { PiggyBankIcon, TrendingDownIcon, TrendingUpIcon } from "lucide-react";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { NumericFormat } from "react-number-format";
-import { toast } from "sonner";
 import z from "zod";
 
 import {
@@ -18,6 +16,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useAuthContext } from "@/contexts/auth";
+import { useCreateTransaction } from "@/hooks/data/transactions";
 import TransactionService from "@/services/transaction";
 
 import FormInput from "./FormInput";
@@ -50,32 +49,16 @@ const ButtonAddTransaction = () => {
     },
     shouldUnregister: true,
   });
-  const { user } = useAuthContext();
 
-  const queryClient = useQueryClient();
-
-  const { mutate: createTransaction, isPending } = useMutation({
-    mutationKey: ["createTransaction"],
-    mutationFn: async (data) => {
-      return await TransactionService.create(data);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({
-        queryKey: ["user-transactions", user?.id],
-      });
-      toast.success("Transactions added successfuly");
-      setIsModalOpen((currentValue) => !currentValue);
-    },
-    onError: () => {
-      toast.error("An error ocurrued while saving the transaction.");
-    },
-  });
-
+  const { mutate: createTransaction, isPending } = useCreateTransaction();
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleSubmitForm = (formData) => {
-    const createdTransaction = createTransaction(formData);
-    return createdTransaction;
+    createTransaction(formData, {
+      onSuccess: () => {
+        setIsModalOpen((currentValue) => !currentValue);
+      },
+    });
   };
 
   return (
