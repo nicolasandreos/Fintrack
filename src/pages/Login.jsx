@@ -1,7 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router";
-import z from "zod";
 
 import FormInput from "@/components/FormInput";
 import InputPassword from "@/components/InputPassword";
@@ -28,34 +25,19 @@ import {
   LOCAL_STORAGE_REFRESH_TOKEN,
 } from "@/constants/localStorage";
 import { useAuthContext } from "@/contexts/auth";
-
-const loginSchema = z.object({
-  email: z
-    .string()
-    .trim()
-    .min(1, "Email is required")
-    .email("Invalid email address"),
-  password: z.string().trim().min(6, "Password must be at least 6 characters"),
-});
+import { useFormUserLogin } from "@/form/hooks/user";
 
 const LoginPage = () => {
-  const formSettings = useForm({
-    resolver: zodResolver(loginSchema),
-    defaultValues: {
-      email: "",
-      password: "",
+  const { login, user, isAuthenticating } = useAuthContext();
+  const { formSettings, handleSubmitForm } = useFormUserLogin({
+    onSuccess: () => {
+      removeTokens();
     },
   });
-  const { login, user, isAuthenticating } = useAuthContext();
 
   const removeTokens = () => {
     localStorage.removeItem(LOCAL_STORAGE_ACCESS_TOKEN);
     localStorage.removeItem(LOCAL_STORAGE_REFRESH_TOKEN);
-  };
-
-  const handleSubmitForm = (formData) => {
-    removeTokens();
-    login(formData);
   };
 
   if (isAuthenticating) {
