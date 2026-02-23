@@ -1,7 +1,4 @@
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Link, Navigate } from "react-router";
-import * as z from "zod";
 
 import FormInput from "@/components/FormInput";
 import InputPassword from "@/components/InputPassword";
