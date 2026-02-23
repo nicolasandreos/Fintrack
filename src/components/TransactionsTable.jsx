@@ -6,6 +6,7 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table";
+import formatToBRL from "@/helpers/currency";
 import { useGetAllUserTransactions } from "@/hooks/data/Transactions";
 
 import { Card, CardContent, CardHeader } from "./ui/card";
@@ -97,7 +98,7 @@ const TransactionsTable = () => {
                 </TableCell>
                 <TableCell>{userTransaction?.type}</TableCell>
                 <TableCell>{formatDate(userTransaction?.date)}</TableCell>
-                <TableCell>{userTransaction?.amount}</TableCell>
+                <TableCell>{formatToBRL(userTransaction?.amount)}</TableCell>
                 <TableCell className="text-right">ICONE</TableCell>
               </TableRow>
             ))}

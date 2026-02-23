@@ -8,6 +8,7 @@ import {
 import { useSearchParams } from "react-router";
 
 import { useAuthContext } from "@/contexts/auth";
+import formatToBRL from "@/helpers/currency";
 import TransactionService from "@/services/transaction";
 
 import CardSection from "./Card";
@@ -59,24 +60,24 @@ const Cards = () => {
       <div className="col-span-2 grid w-213 grid-cols-2 grid-rows-2 gap-4">
         <CardSection
           text="Wallet"
-          value={`R$ ${walletAmount}`}
+          value={formatToBRL(walletAmount)}
           icon={<WalletIcon className="h-5 w-5 text-white opacity-100" />}
         />
         <CardSection
           text="Profits"
-          value={`R$ ${profitsAmount}`}
+          value={formatToBRL(profitsAmount)}
           icon={<TrendingUpIcon className="text-primary h-5 w-5 opacity-100" />}
         />
         <CardSection
           text="Expenses"
-          value={`R$ ${expensesAmount}`}
+          value={formatToBRL(expensesAmount)}
           icon={
             <TrendingDownIcon className="h-5 w-5 text-red-500 opacity-100" />
           }
         />
         <CardSection
           text="Investment"
-          value={`R$ ${investmentAmount}`}
+          value={formatToBRL(investmentAmount)}
           icon={<PiggyBankIcon className="h-5 w-5 text-blue-500 opacity-100" />}
         />
       </div>
