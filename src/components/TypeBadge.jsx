@@ -1,7 +1,7 @@
 import { tv } from "tailwind-variants";
 
 const bagdeType = tv({
-  base: "p-1 font-bold rounded-full flex items-center justify-center gap-2 max-w-25",
+  base: "p-1 font-bold rounded-full flex items-center justify-center gap-2 max-w-30",
   variants: {
     type: {
       EARNING: "bg-green-800/10 text-green-500",

@@ -1,3 +1,5 @@
+import { ExternalLink } from "lucide-react";
+
 import {
   Table,
   TableBody,
@@ -79,15 +81,17 @@ const TransactionsTable = () => {
 
   return (
     <Card>
-      <CardHeader className="font-semibold">Transactions</CardHeader>
+      <CardHeader className="text-xl font-semibold">Transactions</CardHeader>
       <CardContent>
         <Table>
           <TableHeader>
             <TableRow>
-              <TableHead className="w-25">Title</TableHead>
-              <TableHead>Type</TableHead>
-              <TableHead>Date</TableHead>
-              <TableHead>Amount</TableHead>
+              <TableHead className="text-muted-foreground w-25">
+                Title
+              </TableHead>
+              <TableHead className="text-muted-foreground">Type</TableHead>
+              <TableHead className="text-muted-foreground">Date</TableHead>
+              <TableHead className="text-muted-foreground">Amount</TableHead>
               <TableHead className="text-right"></TableHead>
             </TableRow>
           </TableHeader>
@@ -100,9 +104,13 @@ const TransactionsTable = () => {
                 <TableCell>
                   <TypeBadge variant={userTransaction?.type} />
                 </TableCell>
-                <TableCell>{formatDate(userTransaction?.date)}</TableCell>
+                <TableCell className="text-muted-foreground">
+                  {formatDate(userTransaction?.date)}
+                </TableCell>
                 <TableCell>{formatToBRL(userTransaction?.amount)}</TableCell>
-                <TableCell className="text-right">ICONE</TableCell>
+                <TableCell className="text-muted-foreground text-right">
+                  <ExternalLink className="w-5" />
+                </TableCell>
               </TableRow>
             ))}
           </TableBody>
