@@ -9,6 +9,7 @@ import {
 import formatToBRL from "@/helpers/currency";
 import { useGetAllUserTransactions } from "@/hooks/data/Transactions";
 
+import TypeBadge from "./TypeBadge";
 import { Card, CardContent, CardHeader } from "./ui/card";
 const invoices = [
   {
@@ -96,7 +97,9 @@ const TransactionsTable = () => {
                 <TableCell className="font-medium">
                   {capitalizeFirstLetter(userTransaction?.name)}
                 </TableCell>
-                <TableCell>{userTransaction?.type}</TableCell>
+                <TableCell>
+                  <TypeBadge variant={userTransaction?.type} />
+                </TableCell>
                 <TableCell>{formatDate(userTransaction?.date)}</TableCell>
                 <TableCell>{formatToBRL(userTransaction?.amount)}</TableCell>
                 <TableCell className="text-right">ICONE</TableCell>
