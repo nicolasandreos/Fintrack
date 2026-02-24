@@ -10,6 +10,9 @@ export const createTransactionKey = ["createTransaction"];
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
   const { user } = useAuthContext();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
+  const to = searchParams.get("to");
 
   return useMutation({
     mutationKey: createTransactionKey,
@@ -19,6 +22,9 @@ export const useCreateTransaction = () => {
     onSuccess: () => {
       queryClient.invalidateQueries({
         queryKey: ["user-transactions", user?.id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: getAllUserTransactionsKey({ user, from, to }),
       });
       toast.success("Transactions added successfuly");
     },
