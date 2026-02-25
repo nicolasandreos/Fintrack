@@ -6,7 +6,7 @@ import { useAuthContext } from "@/contexts/auth";
 import { loginSchema, SingUpSchema } from "../schemas/user";
 
 export const useFormUserLogin = ({ onSuccess }) => {
-  const { login } = useAuthContext();
+  const { login, isLoginPending } = useAuthContext();
   const formSettings = useForm({
     resolver: zodResolver(loginSchema),
     defaultValues: {
@@ -20,11 +20,11 @@ export const useFormUserLogin = ({ onSuccess }) => {
     login(formData);
   };
 
-  return { formSettings, handleSubmitForm };
+  return { formSettings, handleSubmitForm, isLoginPending };
 };
 
 export const useFormSignUp = () => {
-  const { signUp } = useAuthContext();
+  const { signUp, isCreatingUser } = useAuthContext();
   const formSettings = useForm({
     resolver: zodResolver(SingUpSchema),
     defaultValues: {
@@ -41,5 +41,5 @@ export const useFormSignUp = () => {
     signUp(formData);
   };
 
-  return { formSettings, handleFormSubmit };
+  return { formSettings, handleFormSubmit, isCreatingUser };
 };

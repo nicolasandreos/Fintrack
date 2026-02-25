@@ -28,8 +28,8 @@ import { useAuthContext } from "@/contexts/auth";
 import { useFormUserLogin } from "@/form/hooks/user";
 
 const LoginPage = () => {
-  const { login, user, isAuthenticating } = useAuthContext();
-  const { formSettings, handleSubmitForm } = useFormUserLogin({
+  const { user, isAuthenticating } = useAuthContext();
+  const { formSettings, handleSubmitForm, isLoginPending } = useFormUserLogin({
     onSuccess: () => {
       removeTokens();
     },
@@ -97,8 +97,12 @@ const LoginPage = () => {
               />
             </CardContent>
             <CardFooter className="flex flex-col items-center">
-              <Button type="submit" className="w-full py-6 text-xl">
-                Login
+              <Button
+                disabled={isLoginPending}
+                type="submit"
+                className="w-full py-6 text-xl"
+              >
+                {isLoginPending ? "Authenticating" : "Login"}
               </Button>
               <div className="mt-4 flex items-center justify-center">
                 <p className="text-muted-foreground text-sm">

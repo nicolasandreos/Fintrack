@@ -25,7 +25,7 @@ import { useAuthContext } from "@/contexts/auth";
 import { useFormSignUp } from "@/form/hooks/user";
 
 const SignUpPage = () => {
-  const { formSettings, handleFormSubmit } = useFormSignUp();
+  const { formSettings, handleFormSubmit, isCreatingUser } = useFormSignUp();
   const { user, isAuthenticating } = useAuthContext();
 
   if (isAuthenticating) {
@@ -157,8 +157,12 @@ const SignUpPage = () => {
               />
             </CardContent>
             <CardFooter className="flex flex-col items-center">
-              <Button type="submit" className="w-full py-6 text-xl">
-                Sign Up
+              <Button
+                disabled={isCreatingUser}
+                type="submit"
+                className="w-full py-6 text-xl"
+              >
+                {isCreatingUser ? "Registering.." : "Sign Up"}
               </Button>
               <div className="mt-4 flex items-center justify-center">
                 <p className="text-muted-foreground text-sm">

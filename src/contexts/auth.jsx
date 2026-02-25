@@ -20,8 +20,8 @@ export const useAuthContext = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const { mutate: doLogin } = useLogin();
-  const { mutate: createUser } = useCreateUser();
+  const { mutate: doLogin, isPending: isLoginPending } = useLogin();
+  const { mutate: createUser, isPending: isCreatingUser } = useCreateUser();
   const { data: authenticatedUser, isPending } = useGetAutenticatedUser();
 
   const removeTokens = () => {
@@ -63,7 +63,15 @@ export const AuthProvider = ({ children }) => {
 
   return (
     <AuthContext.Provider
-      value={{ user, isAuthenticating: isPending, login, logout, signUp }}
+      value={{
+        user,
+        isAuthenticating: isPending,
+        login,
+        logout,
+        signUp,
+        isLoginPending,
+        isCreatingUser,
+      }}
     >
       {children}
     </AuthContext.Provider>
