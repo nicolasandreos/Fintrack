@@ -36,10 +36,10 @@ export const useFormAddTransaction = ({ onSuccess }) => {
   return { formSettings, handleSubmitForm, isPending };
 };
 
-function addOneDay(isoString) {
-  const date = new Date(isoString);
-  date.setUTCDate(date.getUTCDate() + 1);
-  return date.toISOString();
+function addOneDay(date) {
+  const d = new Date(date);
+  d.setUTCDate(d.getUTCDate() + 1);
+  return d;
 }
 
 export const useFormEditTransaction = ({ onSuccess, transaction }) => {
@@ -49,7 +49,7 @@ export const useFormEditTransaction = ({ onSuccess, transaction }) => {
     defaultValues: {
       name: transaction.name,
       amount: parseFloat(transaction.amount),
-      date: new Date(transaction.date),
+      date: addOneDay(transaction.date),
       type: transaction.type,
     },
     shouldUnregister: true,
@@ -59,7 +59,7 @@ export const useFormEditTransaction = ({ onSuccess, transaction }) => {
     formSettings.reset({
       name: transaction.name,
       amount: parseFloat(transaction.amount),
-      date: new Date(transaction.date),
+      date: addOneDay(transaction.date),
       type: transaction.type,
     });
     formSettings.setValue("id", transaction.id);
