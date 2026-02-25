@@ -6,7 +6,6 @@ import { useAuthContext } from "@/contexts/auth";
 import TransactionService from "@/services/transaction";
 
 export const createTransactionKey = ["createTransaction"];
-
 export const useCreateTransaction = () => {
   const queryClient = useQueryClient();
   const { user } = useAuthContext();
@@ -34,10 +33,38 @@ export const useCreateTransaction = () => {
   });
 };
 
+export const editTransactionKey = ["editTransaction"];
+export const useEditTransaction = () => {
+  const queryClient = useQueryClient();
+  const { user } = useAuthContext();
+  const [searchParams] = useSearchParams();
+  const from = searchParams.get("from");
+  const to = searchParams.get("to");
+
+  return useMutation({
+    mutationKey: editTransactionKey,
+    mutationFn: async ({ transaction }) => {
+      console.log(transaction);
+      return await TransactionService.edit({ transaction });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["user-transactions", user?.id],
+      });
+      queryClient.invalidateQueries({
+        queryKey: getAllUserTransactionsKey({ user, from, to }),
+      });
+      toast.success("Transactions edited successfuly");
+    },
+    onError: () => {
+      toast.error("An error ocurrued while editing the transaction.");
+    },
+  });
+};
+
 export const getAllUserTransactionsKey = ({ user, from, to }) => {
   return ["transactions", user?.id, from, to];
 };
-
 export const useGetAllUserTransactions = () => {
   const { user } = useAuthContext();
   const [searchParams] = useSearchParams();
