@@ -9,7 +9,7 @@ The application allows users to manage **expenses, income, and investments**, pr
 ## 🚀 Live Demo
 
 🔗 **Deployed Application:**  
-https://fintrack-two-lac.vercel.app/login
+fintrack-two-lac.vercel.app
 
 ---
 
