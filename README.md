@@ -6,6 +6,36 @@ The application allows users to manage **expenses, income, and investments**, pr
 
 ---
 
+## 🚀 Live Demo
+
+🔗 **Deployed Application:**  
+https://fintrack-two-lac.vercel.app/login
+
+---
+
+## 🖼️ Application Screenshots
+
+### 🏠 Home Dashboard
+Displays the main overview with the transactions table and filtering by date range.
+
+![Home Page](./assets/home.png)
+
+---
+
+### ➕ Add Transaction Form
+Form to register a new income, expense, or investment with validation using Zod.
+
+![Add Transaction](./assets/add.png)
+
+---
+
+### ✏️ Edit Transaction
+Interface to update an existing transaction with prefilled form fields.
+
+![Edit Transaction](./assets/edit.png)
+
+---
+
 ## 🚀 Tech Stack
 
 ### 🧩 Frontend
