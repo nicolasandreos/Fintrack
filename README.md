@@ -104,8 +104,8 @@ src/
 1. Clone the repository:
 
 ```bash
-git clone https://github.com/your-username/fintrack.git
-cd fintrack
+git clone https://github.com/nicolasandreos/Fintrack.git
+cd Fintrack
 ```
 
 2. Install dependencies:
